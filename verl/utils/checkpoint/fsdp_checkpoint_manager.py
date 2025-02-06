@@ -77,8 +77,7 @@ class FSDPCheckpointManager(BaseCheckpointManager):
         # TODO: shall we remove previous ckpt every iter?
         self.remove_previous_save_local_path()
         local_path = self.local_mkdir(local_path,
-                                    use_temp_dir=kwargs.get('use_temp_dir', False),
-                                    is_abs=kwargs.get('is_abs', True))
+                                      is_abs=kwargs.get('is_abs', True))
         torch.distributed.barrier()
 
         # every rank will save its own model and optim shard

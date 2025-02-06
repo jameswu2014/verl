@@ -58,7 +58,7 @@ class BaseCheckpointManager:
         shutil.rmtree(abs_path, ignore_errors=True)
 
     @staticmethod
-    def local_mkdir(path, use_temp_dir=False, is_abs=True):
+    def local_mkdir(path, is_abs=True):
         """
         Create a directory with proper path handling.
         
@@ -67,14 +67,12 @@ class BaseCheckpointManager:
             use_temp_dir: If True, create directory in system temp directory
             is_abs: If True, treat path as absolute path
         """
-        if use_temp_dir:
-            path = os.path.join(tempfile.gettempdir(), path + '.lock')
-        elif is_abs:
+        if is_abs:
             path = path
         else:
             package_dir = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(package_dir, path)
-        with FileLock(path):
+        with FileLock(os.path.join(tempfile.gettempdir(), path + '.lock')):
             # make a new dir
             os.makedirs(path, exist_ok=True)
         
