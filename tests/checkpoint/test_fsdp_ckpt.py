@@ -100,6 +100,7 @@ def test_fsdp_ckpt():
     loss2 = outputs2.logits.mean()
     loss2.backward()
     optimizer.step()
+    lr_scheduler.step()
     optimizer.zero_grad()
     
     # Record logits after second update
@@ -114,6 +115,7 @@ def test_fsdp_ckpt():
     loss3 = outputs3.logits.mean()
     loss3.backward()
     optimizer.step()
+    lr_scheduler.step()
     optimizer.zero_grad()
     
     # Record logits after loaded checkpoint and update
