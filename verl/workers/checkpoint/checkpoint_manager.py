@@ -74,7 +74,7 @@ class BaseCheckpointManager:
         else:
             package_dir = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(package_dir, path)
-        with FileLock(os.path.join(tempfile.gettempdir(), path + '.lock')):
+        with FileLock(path):
             # make a new dir
             os.makedirs(path, exist_ok=True)
         
