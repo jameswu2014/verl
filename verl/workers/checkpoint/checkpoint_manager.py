@@ -77,6 +77,8 @@ class BaseCheckpointManager:
         with FileLock(os.path.join(tempfile.gettempdir(), path + '.lock')):
             # make a new dir
             os.makedirs(path, exist_ok=True)
+        
+        return path
 
     @staticmethod
     def get_rng_state():
